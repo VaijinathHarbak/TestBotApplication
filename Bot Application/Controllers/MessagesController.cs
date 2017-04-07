@@ -2,7 +2,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using System;
 
@@ -21,7 +20,8 @@ namespace Bot_Application
             {
                 ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
                 int len = string.IsNullOrWhiteSpace(activity.Text) ? 0 : activity.Text.Length;
-                Activity reply = activity.CreateReply("You sent {0} which was {1} characters");
+                string str = string.Format("You sent {0} which was {1} characters", activity.Text, len);
+                Activity reply = activity.CreateReply(str);
                 await connector.Conversations.ReplyToActivityAsync(reply);
             }
             else
